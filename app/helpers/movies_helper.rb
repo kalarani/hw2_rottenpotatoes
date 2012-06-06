@@ -7,4 +7,8 @@ module MoviesHelper
   def style_for sort_param
     params[:sort] == sort_param ? 'hilite' : ''
   end
+
+  def checked? rating
+    @ratings.include?(rating)
+  end
 end
