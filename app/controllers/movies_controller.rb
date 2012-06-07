@@ -7,6 +7,12 @@ class MoviesController < ApplicationController
   end
 
   def index
+    if (session[:ratings] && !params[:ratings]) && (session[:sort] && !params[:sort])
+      redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
+    else
+      session[:ratings] = params[:ratings] || session[:ratings]
+      session[:sort] = params[:sort] || session[:sort]
+    end
     @ratings = @all_ratings = Movie.ratings
     if params[:ratings]
       @ratings = params[:ratings].select { |k,v| v == '1'}.keys
